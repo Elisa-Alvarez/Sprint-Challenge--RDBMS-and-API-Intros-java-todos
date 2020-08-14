@@ -44,6 +44,12 @@ public class User extends Auditable
     @Email
     private String primaryemail;
 
+    @OneToMany(mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    @JsonIgnoreProperties(value = "user")
+    private List<Todo> todo = new ArrayList<>();
+
     /**
      * Default constructor used primarily by the JPA.
      */
@@ -160,5 +166,13 @@ public class User extends Auditable
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+    public List<Todo> getTodos() {
+        return todo;
+    }
+
+    public void setTodos(List<Todo> todos) {
+        this.todo = todos;
     }
 }
